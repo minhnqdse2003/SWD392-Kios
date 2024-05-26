@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
+:root {
+  --color-btn: #7f5af0;
+  --color-btn-text: #fffffe;
+  --color-bg: #16161a;
+  --color-para: #94a1b2;
+  --color-primary: #16161a;
+  --color-secondary: #72757e;
+
+  --color-headline: #fffffe;
+  --color-sub-headline: #94a1b2;
+  --color-tertiary: #2cb67d;
+  --color-card-bg: #16161a;
+  --color-card-heading: #fffffe;
+  --color-card-para: #94a1b2;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+.sidebar-li {
+  @apply flex items-center p-3;
+}
+
+.sidebar-ul {
+  @apply flex items-start w-full justify-start flex-col gap-4;
+}
+
+.sidebar-collapse {
+  @apply w-24;
+}
+
+.sidebar-collapse .sidebar-li {
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-collapse .side-content {
+  display: none;
+}
+
+.sidebar-collapse .side-icon {
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-collapse .sidebar-ul {
+  align-items: center;
+  justify-content: center;
+}
+
+.side-content {
+  @apply ml-2 font-bold;
+}
