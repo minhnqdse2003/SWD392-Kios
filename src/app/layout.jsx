@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import Sidebar from "@/components/Sidebar";
 import SidebarProvider from "@/context/SidebarContext";
 import SessionWrapper from "@/context/SessionWrapper";
+import Provider from "@/utils/Providers";
 
 export const metadata = {
   title: "Create Next App",
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
           <SidebarProvider>
             <Sidebar />
           </SidebarProvider>
-          <div className="w-4/5">{children}</div>
+          <div className="w-full">
+            <Provider>{children}</Provider>
+          </div>
         </body>
       </html>
     </SessionWrapper>
