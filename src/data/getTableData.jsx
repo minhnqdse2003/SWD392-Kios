@@ -1,9 +1,9 @@
 import { getTable } from "@/server/tableActions";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetTable = () => {
+export const useGetTable = (filterParams) => {
   return useQuery({
-    queryFn: async () => getTable(),
-    queryKey: ["table"],
+    queryFn: async () => getTable(filterParams),
+    queryKey: ["table", filterParams],
   });
 };
