@@ -1,3 +1,4 @@
+import TableSkeleton from "@/components/Skeleton/TableSkeleton";
 import Table from "@/components/Table";
 import { getTable } from "@/server/tableActions";
 import {
@@ -5,7 +6,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import React from "react";
+import React, { Suspense } from "react";
 
 const page = async () => {
   const queryClient = new QueryClient();
@@ -16,9 +17,11 @@ const page = async () => {
   });
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <Table />
-    </HydrationBoundary>
+    <Suspense>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Table />
+      </HydrationBoundary>
+    </Suspense>
   );
 };
 

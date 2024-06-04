@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <SessionWrapper>
       <html lang="en">
-        <body className="flex overflow-hidden">
+        <body className="flex overflow-hidden" suppressHydrationWarning={true}>
           <SidebarProvider>
             <Sidebar />
           </SidebarProvider>

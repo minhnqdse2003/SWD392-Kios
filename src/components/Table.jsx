@@ -1,8 +1,9 @@
 "use client";
 import { useGetTable } from "@/data/getTableData";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { PaginationController } from "./PaginationController";
+import TableSkeleton from "./Skeleton/TableSkeleton";
 
 const Table = () => {
   const [selectedRow, setSelectedRow] = useState(null);
@@ -10,24 +11,20 @@ const Table = () => {
 
   const filterParams = {
     page: searchParams.get("page") || 1,
-    filteredBy: searchParams.get("filteredBy") | "name",
+    filteredBy: searchParams.get("filteredBy") || "username",
     ascOrder: searchParams.get("ascOrder") || "true",
   };
-
-  useEffect(() => {
-    console.log(filterParams);
-  }, [{ ...filterParams }]);
 
   const onSelectedRow = (row) => {
     setSelectedRow(row);
   };
 
-  const { data, error, isLoading } = useGetTable(searchParams.get("page"));
+  const { data, error, isLoading } = useGetTable(filterParams);
 
   return (
     <>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <TableSkeleton />
       ) : (
         <>
           <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default sm:px-7.5 xl:pb-1">
