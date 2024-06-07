@@ -1,5 +1,5 @@
 import TableSkeleton from "@/components/Skeleton/TableSkeleton";
-import Table from "@/components/Table";
+import TableData from "@/components/Table";
 import { getTable } from "@/server/tableActions";
 import {
   HydrationBoundary,
@@ -19,7 +19,7 @@ const page = async () => {
   return (
     <Suspense>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Table />
+        <TableData />
       </HydrationBoundary>
     </Suspense>
   );

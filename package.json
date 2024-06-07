@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.4.2",
+    "@mui/material": "^5.15.19",
     "@nextui-org/react": "^2.4.1",
     "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-query-devtools": "^5.40.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
     "react": "^18",
@@ -20,6 +24,7 @@
     "react-hook-form": "^7.51.5",
     "react-icons": "^5.2.1",
     "skeleton": "^0.1.2",
+    "snackbar": "^1.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

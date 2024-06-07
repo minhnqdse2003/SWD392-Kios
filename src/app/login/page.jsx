@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import LoginWithGoogle from "./LoginWithGoogle";
 import FormLoginWithCredential from "./FormLoginWithCredential";
 
@@ -23,7 +23,9 @@ const page = async () => {
               Kios Management System
             </p>
           </section>
-          <FormLoginWithCredential />
+          <Suspense>
+            <FormLoginWithCredential />
+          </Suspense>
           <LoginWithGoogle />
         </div>
       </div>

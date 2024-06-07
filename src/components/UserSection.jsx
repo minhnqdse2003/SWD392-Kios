@@ -6,9 +6,6 @@ import { FaUser } from "react-icons/fa";
 
 const UserSection = ({ className, size }) => {
   const { data, status } = useSession();
-  if (status === "loading") {
-    return <div>loading...</div>;
-  }
   return (
     <div className={className + `bg-btn w-5/6 rounded-2xl overflow-hidden`}>
       {data ? (

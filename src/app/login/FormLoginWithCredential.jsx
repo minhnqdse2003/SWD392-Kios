@@ -3,10 +3,11 @@ import { signInSchema } from "@/schemas/auth/schemaAuth";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { Alert, Snackbar } from "@mui/material";
+import { useSearchParams } from "next/navigation";
 
 const FormLoginWithCredential = () => {
-  const [data, setData] = useState();
-
   const {
     register,
     handleSubmit,
@@ -16,14 +17,22 @@ const FormLoginWithCredential = () => {
     resolver: zodResolver(signInSchema),
   });
 
+  const param = useSearchParams();
+
+  const [open, setOpen] = useState(param.get("error") != null);
+
+  const handleClose = () => {
+    return setOpen(false);
+  };
+
   const processForm = async (data) => {
     reset();
-    setData(data);
+    signIn("credentials", { ...data });
   };
 
   return (
-    <section className="flex gap-6">
-      <form onSubmit={handleSubmit(processForm)}>
+    <section>
+      <form className="w-full" onSubmit={handleSubmit(processForm)}>
         <div className="mb-4">
           <label className="mb-2.5 block font-medium text-black">
             Email
@@ -108,9 +117,21 @@ const FormLoginWithCredential = () => {
           />
         </div>
       </form>
-      <div className="flex-1 rounded-lg bg-cyan-600 p-8 text-white">
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      </div>
+      <Snackbar
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert
+          autoHideDuration={6000}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          This is a success Alert inside a Snackbar!
+        </Alert>
+      </Snackbar>
     </section>
   );
 };
