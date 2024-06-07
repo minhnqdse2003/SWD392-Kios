@@ -41,6 +41,7 @@ const TableData = () => {
 
   const { data, error, isLoading } = useGetTable(filterParams);
 
+
   const onSelectedRow = (row) => {
     setSelectedRow(row);
     setIsOpen(true);
@@ -53,6 +54,8 @@ const TableData = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
+    console.log(`${name}: ${value}`)
     setFilters({ ...filters, [name]: value });
   };
 

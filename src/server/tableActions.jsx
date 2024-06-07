@@ -8,7 +8,7 @@ export const getTable = async ({ page, filteredBy, ascOrder }) => {
     }
   );
 
-  if (!response.ok) {
+  if (!data.ok) {
     throw new Error("Network response was not ok");
   }
 

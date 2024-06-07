@@ -1,5 +1,5 @@
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
-import React from "react";
+import React, {useState} from "react";
 import { FaSearch } from "react-icons/fa";
 
 const FilterTab = ({
@@ -9,6 +9,13 @@ const FilterTab = ({
   handleFilterAction,
   disabled,
 }) => {
+  const [name,setName] = useState(filters?.name);
+
+  const onChange = (e) => {
+    handleChange(e);
+    setName(e.target.value);
+  }
+
   return (
     <div>
       <div className="flex px-4 py-2 bg-gray-50 justify-between items-center gap-4">
@@ -17,8 +24,8 @@ const FilterTab = ({
           label="Search"
           placeholder="Enter Search Content"
           name="name"
-          value={filters?.name || ""}
-          onChange={handleChange}
+          value={name || ""}
+          onChange={onChange}
           startContent={<FaSearch />}
           disabled={!!disabled}
         />

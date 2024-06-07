@@ -129,7 +129,7 @@ const FormLoginWithCredential = () => {
           variant="filled"
           sx={{ width: "100%" }}
         >
-          This is a success Alert inside a Snackbar!
+          {param.get("error")}
         </Alert>
       </Snackbar>
     </section>
