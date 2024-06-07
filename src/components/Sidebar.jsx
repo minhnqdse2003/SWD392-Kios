@@ -58,7 +58,7 @@ const Sidebar = () => {
       }`}
     >
       <div className={`w-full flex h-4/5 flex-col gap-2`}>
-        <div className={`flex ${collapsed ? "flex-col" : ""}`}>
+        <div className={`flex justify-between ${collapsed ? "flex-col" : ""}`}>
           <Link
             href="/"
             className={`w-50 h-fit flex items-center cursor-pointer p-3`}

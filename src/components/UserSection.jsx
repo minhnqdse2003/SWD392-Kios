@@ -1,13 +1,11 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import { FaGoogle } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 const UserSection = ({ className, size }) => {
   const { data, status } = useSession();
-  if (status === "loading") {
-    return <div>loading...</div>;
-  }
   return (
     <div className={className + `bg-btn w-5/6 rounded-2xl overflow-hidden`}>
       {data ? (
@@ -30,13 +28,13 @@ const UserSection = ({ className, size }) => {
           </div>
         </div>
       ) : (
-        <button
+        <Link
           className="flex p-4 gap-4 side-icon w-full text-btn-text overflow-hidden hover:bg-btn-text hover:text-btn"
-          onClick={() => signIn("google")}
+          href={"/login"}
         >
-          <FaGoogle size={size} />
-          <p className="side-content">Sign In With Google</p>
-        </button>
+          <FaUser size={size} />
+          <p className="side-content tracking-[0.08em]">SIGN IN</p>
+        </Link>
       )}
     </div>
   );
