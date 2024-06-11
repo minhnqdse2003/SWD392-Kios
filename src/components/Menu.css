@@ -1,0 +1,9 @@
+.menu-btn.selected {
+    background-color: #7F5AF0; 
+    color: #ffffff; 
+  }
+
+  .menu-btn {
+    background-color: #f0f0f0; 
+    color: #000000; 
+  }
