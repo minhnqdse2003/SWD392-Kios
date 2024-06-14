@@ -1,6 +1,5 @@
-import TableSkeleton from "@/components/Skeleton/TableSkeleton";
-import TableData from "@/components/Table";
-import { getTable } from "@/server/tableActions";
+import TableData from "@/app/product/components/Table";
+import { getProduct } from "@/server/productAction";
 import {
   HydrationBoundary,
   QueryClient,
@@ -13,7 +12,7 @@ const page = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: ["table"],
-    queryFn: getTable,
+    queryFn: getProduct,
   });
 
   return (

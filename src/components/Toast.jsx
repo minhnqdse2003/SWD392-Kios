@@ -11,6 +11,7 @@ const Toast = ({ open, message, severity }) => {
   const onClose = () => {
     setIsOpen(false);
   };
+
   return (
     <Snackbar
       anchorOrigin={{ horizontal: "right", vertical: "top" }}

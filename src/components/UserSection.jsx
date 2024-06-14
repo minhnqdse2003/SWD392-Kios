@@ -3,29 +3,41 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaUser } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
 
 const UserSection = ({ className, size }) => {
-  const { data, status } = useSession();
+  const { data } = useSession();
+
   return (
-    <div className={className + `bg-btn w-5/6 rounded-2xl overflow-hidden`}>
+    <div
+      className={
+        className + `bg-btn w-5/6 max-h-20 rounded-2xl overflow-hidden`
+      }
+    >
       {data ? (
-        <div className="flex items-center gap-4 p-4">
+        <div
+          className={`flex ${
+            className.includes("sidebar-collapse") ? "flex-col gap-2" : ""
+          }  items-center p-4 w-full`}
+        >
           <Image
-            src={data.user.image}
+            src={data.user.image || "/user.png"}
             alt="Profile Picture"
-            width={64}
-            height={64}
-            className="rounded-2xl"
+            width={42}
+            height={42}
+            className="rounded-full"
           />
-          <div className="side-content">
-            <h1>Welcome back, {data.user.name}</h1>
-            <button
-              className="rounded-md px-4 py-2 hover:bg-primary hover:text-tertiary font-medium border-2 border-primary"
-              onClick={() => signOut()}
-            >
-              Logout
-            </button>
+          <div className="text-wrap w-1/2 side-content">
+            <h1 className="text-xs whitespace-nowrap overflow-hidden overflow-ellipsis">
+              {data.user.name}
+            </h1>
           </div>
+          <button
+            className="h-full pl-3 text-white hover:text-black"
+            onClick={() => signOut()}
+          >
+            <IoIosLogOut />
+          </button>
         </div>
       ) : (
         <Link
