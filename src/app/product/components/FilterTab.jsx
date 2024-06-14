@@ -1,5 +1,5 @@
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const FilterTab = ({
@@ -9,12 +9,12 @@ const FilterTab = ({
   handleFilterAction,
   disabled,
 }) => {
-  const [name,setName] = useState(filters?.name);
+  const [name, setName] = useState(filters?.name);
 
   const onChange = (e) => {
     handleChange(e);
     setName(e.target.value);
-  }
+  };
 
   return (
     <div>
@@ -22,7 +22,8 @@ const FilterTab = ({
         <Input
           className="w-3/5"
           label="Search"
-          placeholder="Enter Search Content"
+          key={"Search input"}
+          placeholder="Search..."
           name="name"
           value={name || ""}
           onChange={onChange}
@@ -59,6 +60,7 @@ const FilterTab = ({
           label="Category"
           onChange={handleSelectChange}
           disabled={!!disabled}
+          placeholder="Select a category..."
         >
           <SelectItem key="all">All</SelectItem>
           <SelectItem key="drink">Drink</SelectItem>

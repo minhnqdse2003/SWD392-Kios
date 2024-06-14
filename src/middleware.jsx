@@ -2,23 +2,41 @@
 routes. Here's a breakdown of what each part is doing: */
 import { NextResponse } from "next/server";
 
-const systemRoute = ["/home", "/about", "/mails", "/contacts", "/"];
+const systemRoute = [
+  "/home",
+  "/about",
+  "/mails",
+  "/contacts",
+  "/",
+  "/product",
+  "/user",
+  "/order",
+];
 const assetExtensions = ["js", "css", "png", "jpg", "jpeg", "svg", "ico"];
 
-export const middleware = async (request) => {
-  const currentUser = request.cookies.get("next-auth.session-token")?.value;
-  const path = request.nextUrl.pathname;
+export const middleware = async (req) => {
+  const { pathname: path } = req.nextUrl;
+  const currentUser = req.cookies.get("next-auth.session-token");
 
   if (currentUser && path.startsWith("/login")) {
-    return Response.redirect(new URL("/", request.url));
+    return Response.redirect(new URL("/", req.url));
   }
 
-  if (!currentUser && systemRoute.includes(path)) {
-    return Response.redirect(new URL("/login", request.url));
+  if (!currentUser && systemRoute.includes(getUrlSegments(path))) {
+    return Response.redirect(new URL("/login", req.url));
   }
 
   return NextResponse.next();
 };
+
+function getUrlSegments(pathname) {
+  // Remove leading and trailing slashes
+  const trimmedPath = pathname.replace(/^\/|\/$/g, "");
+
+  // Split the path into segments
+  const segments = trimmedPath.split("/");
+  return `/${segments[0]}`;
+}
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],

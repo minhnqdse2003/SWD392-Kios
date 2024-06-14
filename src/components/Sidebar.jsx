@@ -1,55 +1,79 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   MdDashboard,
   MdOutlineKeyboardDoubleArrowLeft,
   MdOutlineKeyboardDoubleArrowRight,
 } from "react-icons/md";
-import { AiOutlineHome } from "react-icons/ai";
-import { BsPeople } from "react-icons/bs";
+import { IoFastFoodSharp } from "react-icons/io5";
+import { RiUserSettingsFill } from "react-icons/ri";
+import { BsPeople, BsCartCheckFill } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { TiContacts } from "react-icons/ti";
 import { SidebarContext } from "@/context/SidebarContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import UserSection from "./UserSection";
 
 const iconSize = {
   size: 24,
 };
 
-const sidebarItems = [
+export const sidebarItems = [
   {
     content: "Dashboard",
     href: "/",
     icon: <MdDashboard {...iconSize} />,
+    role: "business",
   },
   {
-    content: "Home",
-    href: "/home",
-    icon: <AiOutlineHome {...iconSize} />,
+    content: "Product",
+    href: "/product",
+    icon: <IoFastFoodSharp {...iconSize} />,
+    role: "business",
+  },
+  {
+    content: "User",
+    href: "/user",
+    icon: <RiUserSettingsFill {...iconSize} />,
+    role: "business",
+  },
+  {
+    content: "Order",
+    href: "/order",
+    icon: <BsCartCheckFill {...iconSize} />,
+    role: "business",
   },
   {
     content: "About",
     href: "/about",
     icon: <BsPeople {...iconSize} />,
+    role: "business",
   },
   {
     content: "Mails",
     href: "/mails",
     icon: <FiMail {...iconSize} />,
+    role: "business",
   },
   {
     content: "Contacts",
     href: "/contacts",
     icon: <TiContacts {...iconSize} />,
+    role: "business",
   },
 ];
 
 const Sidebar = () => {
   const { collapsed, handleToggle } = useContext(SidebarContext);
-  const currentRoute = usePathname();
+  const pathname = usePathname();
+  function isPathMatch(item) {
+    if (pathname !== item.href && item.href !== "/") {
+      return pathname.startsWith(item.href);
+    }
+    return pathname === item.href;
+  }
 
   return (
     <div
@@ -89,12 +113,15 @@ const Sidebar = () => {
         </div>
         <ul className="sidebar-ul h-2/3 overflow-y-auto">
           {sidebarItems.map((item) => (
-            <li key={item.content} className="hover:bg-btn w-full">
+            <li
+              key={item.content}
+              className="hover:bg-btn w-full transition-all duration-500"
+            >
               <Link
                 href={item.href}
                 className={`sidebar-li ${
-                  currentRoute === item.href
-                    ? "text-btn hover:text-btn-text"
+                  isPathMatch(item)
+                    ? "text-btn hover:text-btn-text border-r-8 border-btn"
                     : ""
                 }`}
               >

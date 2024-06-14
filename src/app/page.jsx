@@ -1,24 +1,11 @@
-"use client";
-import { useSession } from "next-auth/react";
+import DashBoardHeader from "./components/DashBoardHeader";
+import DashBoardStoreInformation from "./components/DashBoardStoreInformation";
 
 export default function Home() {
-  const { data: session } = useSession();
-
-  const fetchTest = async () => {
-    const res = await fetch("https://localhost:7092/api/values", {
-      method: "GET",
-      headers: {
-        authorization: `bearer ${session?.user.accessToken}`,
-      },
-    });
-
-    const response = await res.json();
-    console.log(response);
-  };
-
   return (
-    <main className="overflow-hidden">
-      main page <button onClick={() => fetchTest()}>Click</button>
+    <main className="overflow-hidden bg-slate-100 p-8 overflow-y-scroll scrollbar-custom h-[100vh] flex flex-col gap-4">
+      <DashBoardHeader />
+      <DashBoardStoreInformation />
     </main>
   );
 }

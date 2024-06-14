@@ -1,5 +1,5 @@
 "use client";
-import { signInSchema } from "@/schemas/auth/schemaAuth";
+import { signInSchema } from "@/schemas/schemaAuth";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

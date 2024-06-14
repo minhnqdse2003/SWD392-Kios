@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { Suspense } from "react";
-import LoginWithGoogle from "./LoginWithGoogle";
-import FormLoginWithCredential from "./FormLoginWithCredential";
+import LoginWithGoogle from "./components/LoginWithGoogle";
+import FormLoginWithCredential from "./components/FormLoginWithCredential";
 
 const page = async () => {
   return (
