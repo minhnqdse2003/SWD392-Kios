@@ -15,6 +15,7 @@ import {
 import SelectedRowModal from "@/app/home/SelectedRowModal";
 import FilterTab from "@/app/home/FilterTab";
 import Toast from "./Toast";
+import MenuTab from "./MenuTab";
 
 const TableData = () => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const TableData = () => {
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedTime, setSelectedTime] = useState("");
 
   const [filters, setFilters] = useState({
     page: searchParams.get("page") || 1,
@@ -29,6 +31,7 @@ const TableData = () => {
     price: searchParams.get("price") || "all",
     status: searchParams.get("status") || "all",
     category: searchParams.get("category") || "all",
+    time: searchParams.get("time") || "mor",
   });
 
   const filterParams = {
@@ -37,6 +40,7 @@ const TableData = () => {
     price: searchParams.get("price") || "all",
     status: searchParams.get("status") || "all",
     category: searchParams.get("category") || "all",
+    time: searchParams.get("time") || "mor",
   };
 
   const { data, error, isLoading } = useGetTable(filterParams);
@@ -67,6 +71,16 @@ const TableData = () => {
   const handleFilterAction = () => {
     const dataPost = { ...filters, page: 1 };
 
+    router.push(`/home?${new URLSearchParams(dataPost)}`);
+  };
+
+  const handleTimeChange = (time) => {
+    setSelectedTime(time);
+    console.log(time);
+  
+    setFilters({ ...filters, time: time });
+  
+    const dataPost = { ...filters, time, page: 1 };
     router.push(`/home?${new URLSearchParams(dataPost)}`);
   };
 
