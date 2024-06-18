@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { Alert, Snackbar } from "@mui/material";
 import { useSearchParams } from "next/navigation";
+import LoginWithGoogle from "./LoginWithGoogle";
+import { Spinner } from "@nextui-org/react";
 
 const FormLoginWithCredential = () => {
   const {
@@ -18,6 +20,7 @@ const FormLoginWithCredential = () => {
   });
 
   const param = useSearchParams();
+  const [isPending, setIsPending] = useState(false);
 
   const [open, setOpen] = useState(param.get("error") != null);
 
@@ -26,8 +29,15 @@ const FormLoginWithCredential = () => {
   };
 
   const processForm = async (data) => {
-    reset();
-    signIn("credentials", { ...data });
+    setIsPending(true);
+    signIn("credentials", { ...data })
+      .then(() => {
+        setIsPending(false);
+        reset();
+      })
+      .catch(() => {
+        setIsPending(false);
+      });
   };
 
   return (
@@ -40,6 +50,7 @@ const FormLoginWithCredential = () => {
               <input
                 type="email"
                 name="email"
+                disabled={isPending}
                 placeholder="Enter your email"
                 {...register("email")}
                 className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none"
@@ -76,6 +87,7 @@ const FormLoginWithCredential = () => {
               <input
                 type="password"
                 name="password"
+                disabled={isPending}
                 {...register("password")}
                 placeholder="6+ Characters, 1 Capital letter"
                 className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none"
@@ -109,14 +121,27 @@ const FormLoginWithCredential = () => {
           </label>
         </div>
 
-        <div className="mb-5">
-          <input
-            type="submit"
-            value="Sign In"
-            className="w-full cursor-pointer rounded-lg border border-primary-100 bg-btn bg-opacity-1 p-4 font-medium text-btn-text transition hover:bg-opacity-45"
-          />
-        </div>
+        {!isPending ? (
+          <div className="mb-5">
+            <input
+              type="submit"
+              value="Sign In"
+              className="w-full cursor-pointer rounded-lg border border-primary-100 bg-btn bg-opacity-1 p-4 font-medium text-btn-text transition hover:bg-opacity-45"
+            />
+          </div>
+        ) : (
+          <div className="my-0 mx-auto w-fit">
+            <Spinner
+              label="Loading..."
+              color="secondary"
+              labelColor="secondary"
+            />
+          </div>
+        )}
       </form>
+      {!isPending && (
+        <LoginWithGoogle isPending={isPending} setIsPending={setIsPending} />
+      )}
       <Snackbar
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
         open={open}

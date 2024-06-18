@@ -14,7 +14,6 @@ import {
   ModalHeader,
   Spinner,
 } from "@nextui-org/react";
-import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdAdd } from "react-icons/io";
@@ -108,7 +107,7 @@ const InformationHeader = () => {
       name: "email",
       value: initialFormValue?.email || "",
       onChange: onValueChange,
-      type: "email",
+      type: "text",
     },
     {
       label: "Name",

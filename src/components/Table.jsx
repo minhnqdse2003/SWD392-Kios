@@ -45,7 +45,6 @@ const TableData = () => {
 
   const { data, error, isLoading } = useGetTable(filterParams);
 
-
   const onSelectedRow = (row) => {
     setSelectedRow(row);
     setIsOpen(true);
@@ -58,13 +57,10 @@ const TableData = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    console.log(`${name}: ${value}`)
     setFilters({ ...filters, [name]: value });
   };
 
   const handleSelectChange = (event) => {
-    console.log(event);
     setFilters({ ...filters, [event.target.name]: event.target.value });
   };
 
@@ -76,10 +72,9 @@ const TableData = () => {
 
   const handleTimeChange = (time) => {
     setSelectedTime(time);
-    console.log(time);
-  
+
     setFilters({ ...filters, time: time });
-  
+
     const dataPost = { ...filters, time, page: 1 };
     router.push(`/home?${new URLSearchParams(dataPost)}`);
   };

@@ -2,10 +2,15 @@
 import { signIn } from "next-auth/react";
 import React from "react";
 
-const LoginWithGoogle = () => {
+const LoginWithGoogle = ({ setIsPending, isPending }) => {
   return (
     <button
-      onClick={() => signIn("google")}
+      onClick={() => {
+        setIsPending(true);
+        signIn("google")
+          .then(() => setIsPending(false))
+          .catch(() => setIsPending(false));
+      }}
       className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray-300 p-4 font-medium hover:bg-opacity-70"
     >
       <span>
