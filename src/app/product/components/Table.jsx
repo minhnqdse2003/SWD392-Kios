@@ -18,6 +18,7 @@ import Toast from "../../../components/Toast";
 import InformationSection from "./InformationSection";
 import FilterTab from "./FilterTab";
 import SelectedRowModal from "./SelectedRowModal";
+import { getSearchParamsObject } from "@/utils/getObject";
 
 const columns = [
   {
@@ -45,25 +46,12 @@ const columns = [
 const TableData = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const currentSearchParam = getSearchParamsObject(searchParams);
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  const [filters, setFilters] = useState({
-    page: searchParams.get("page") || 1,
-    name: searchParams.get("name") || null,
-    price: searchParams.get("price") || null,
-    status: searchParams.get("status") || null,
-    category: searchParams.get("category") || null,
-  });
-
-  const filterParams = {
-    page: searchParams.get("page") || 1,
-    name: searchParams.get("name") || null,
-    price: searchParams.get("price") || null,
-    status: searchParams.get("status") || null,
-    category: searchParams.get("category") || null,
-  };
+  const [filters, setFilters] = useState(currentSearchParam);
+  const filterParams = currentSearchParam;
 
   const { data, error, isLoading } = useGetProduct(filterParams);
 

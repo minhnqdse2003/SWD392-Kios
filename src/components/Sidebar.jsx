@@ -9,11 +9,9 @@ import {
 } from "react-icons/md";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { RiUserSettingsFill } from "react-icons/ri";
-import { BsPeople, BsCartCheckFill } from "react-icons/bs";
-import { FiMail } from "react-icons/fi";
-import { TiContacts } from "react-icons/ti";
+import { BsCartCheckFill } from "react-icons/bs";
 import { SidebarContext } from "@/context/SidebarContext";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import UserSection from "./UserSection";
 
 const iconSize = {
@@ -43,24 +41,6 @@ export const sidebarItems = [
     content: "Order",
     href: "/order",
     icon: <BsCartCheckFill {...iconSize} />,
-    role: "business",
-  },
-  {
-    content: "About",
-    href: "/about",
-    icon: <BsPeople {...iconSize} />,
-    role: "business",
-  },
-  {
-    content: "Mails",
-    href: "/mails",
-    icon: <FiMail {...iconSize} />,
-    role: "business",
-  },
-  {
-    content: "Contacts",
-    href: "/contacts",
-    icon: <TiContacts {...iconSize} />,
     role: "business",
   },
 ];

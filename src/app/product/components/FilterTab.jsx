@@ -10,10 +10,22 @@ const FilterTab = ({
   disabled,
 }) => {
   const [name, setName] = useState(filters?.name);
+  const [code, setCode] = useState(filters?.code);
 
   const onChange = (e) => {
+    const { name: eventName, value: eventValue } = e.target;
+
+    switch (eventName) {
+      case "name":
+        setName(eventValue);
+        break;
+      case "code":
+        setCode(eventValue);
+        break;
+      default:
+        console.warn(`Unexpected input name: ${name}`);
+    }
     handleChange(e);
-    setName(e.target.value);
   };
 
   return (
@@ -21,7 +33,7 @@ const FilterTab = ({
       <div className="flex px-4 py-2 bg-gray-50 justify-between items-center gap-4">
         <Input
           className="w-3/5"
-          label="Search"
+          label="Search By Name"
           key={"Search input"}
           placeholder="Search..."
           name="name"
@@ -30,17 +42,28 @@ const FilterTab = ({
           startContent={<FaSearch />}
           disabled={!!disabled}
         />
+        <Input
+          className="w-3/5"
+          label="Search By Code"
+          key={"Search input"}
+          placeholder="Search..."
+          name="code"
+          value={code || ""}
+          onChange={onChange}
+          startContent={<FaSearch />}
+          disabled={!!disabled}
+        />
 
         <Select
-          name="price"
-          value={filters?.price}
-          label="Price"
+          name="isAscOrder"
+          value={filters?.isAscOrder}
+          label="Order by"
           onChange={handleSelectChange}
           disabled={!!disabled}
         >
           <SelectItem key="all">All</SelectItem>
-          <SelectItem key="asd">Price ASD</SelectItem>
-          <SelectItem key="des">Price DES</SelectItem>
+          <SelectItem key="true">Ascending</SelectItem>
+          <SelectItem key="false">Descending</SelectItem>
         </Select>
 
         <Select
@@ -51,8 +74,8 @@ const FilterTab = ({
           disabled={!!disabled}
         >
           <SelectItem key="all">All</SelectItem>
-          <SelectItem key="active">Active</SelectItem>
-          <SelectItem key="inactive">Inactive</SelectItem>
+          <SelectItem key="true">Active</SelectItem>
+          <SelectItem key="false">Inactive</SelectItem>
         </Select>
         <Select
           name="category"

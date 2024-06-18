@@ -135,7 +135,7 @@ const InformationSection = () => {
       value: 1,
     },
     {
-      name: "Drink",
+      name: "Soft Drinks",
       value: 2,
     },
   ];

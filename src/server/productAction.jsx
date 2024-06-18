@@ -1,32 +1,39 @@
 "use server";
 
-export const getProduct = async ({ page, name, price, status, category }) => {
+import { fetchBase } from "./baseAction";
+
+export const getProduct = async (data) => {
+  const { page, name, code, isAscOrder, status, categoryId, businessID } = data;
+
   const filters = {
-    PageNumber: page || 1,
     Name: name || null,
-    // PriceOrder: price || null,
-    // Status: status || null,
-    // CategoryID: category || null,
+    Code: code || null,
+    SortOrder: isAscOrder || null,
+    Status: status || null,
+    CategoryID: categoryId || null,
+    BusinessID: businessID || null,
+    PageNumber: page || 1,
+    PageSize: null,
   };
   const filteredParam = Object.fromEntries(
     Object.entries(filters).filter(([, value]) => value !== null)
   );
 
-  const res = await fetch(
+  const res = await fetchBase(
     `${process.env.API_SECRET_URL}/api/v1/products?` +
       new URLSearchParams(filteredParam)
   );
 
-  return res.json();
+  return res;
 };
 
 export const postProduct = async (data) => {
   const url = `${process.env.API_SECRET_URL}/api/v1/products`;
 
-  const res = await fetch(url, {
+  const res = await fetchBase(url, {
     body: data,
     method: "POST",
   });
 
-  return res.json();
+  return res;
 };

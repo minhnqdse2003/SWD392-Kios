@@ -10,7 +10,7 @@ import FilterTab from "./components/FilterTab";
 import TableData from "./components/TableData";
 import { authOptions } from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 const page = async () => {
   const queryClient = new QueryClient();
@@ -22,7 +22,7 @@ const page = async () => {
     queryFn: getOrder,
   });
 
-  if (session && session?.user.role !== "business") {
+  if (session && session?.user.role !== "Business") {
     redirect("/");
   }
 

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React, { Suspense } from "react";
-import LoginWithGoogle from "./components/LoginWithGoogle";
 import FormLoginWithCredential from "./components/FormLoginWithCredential";
 
 const page = async () => {
@@ -26,7 +25,6 @@ const page = async () => {
           <Suspense>
             <FormLoginWithCredential />
           </Suspense>
-          <LoginWithGoogle />
         </div>
       </div>
     </main>

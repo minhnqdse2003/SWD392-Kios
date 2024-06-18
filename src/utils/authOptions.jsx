@@ -1,7 +1,6 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { getUser } from "@/server/authAction";
-import NextAuth from "next-auth/next";
+import { getUser, getUserWithGoogle } from "@/server/authAction";
 
 export const authOptions = {
   pages: {
@@ -22,7 +21,16 @@ export const authOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
         const data = await getUser(credentials);
-        return { ...credentials, name: credentials.email };
+        if (data.status === 404) {
+          throw new Error(data.detail);
+        }
+
+        return {
+          ...credentials,
+          name: credentials.email,
+          accessToken: data?.value?.token,
+          role: data?.value?.role,
+        };
       },
     }),
   ],
@@ -31,11 +39,20 @@ export const authOptions = {
     maxAge: 60 * 60 * 60,
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      user.accessToken = "Very gud token";
-      user.role = "business";
-      console.log(user);
-      console.log(account);
+    async signIn({ user, account, profile, credentials }) {
+      const { type } = account;
+      const { email } = user;
+      const data = await getUserWithGoogle(email);
+
+      if (data.status === 404) {
+        throw new Error(data.detail);
+      }
+
+      if (type === "oauth") {
+        user.role = data?.value?.role;
+        user.accessToken = data?.value?.token;
+      }
+
       return true;
     },
     async jwt({ token, user, account }) {

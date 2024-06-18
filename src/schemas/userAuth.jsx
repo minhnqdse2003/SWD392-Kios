@@ -12,8 +12,5 @@ export const addUserSchema = object({
   bankName: z
     .string()
     .min(5, { message: "Bank Name must be at least 5 characters" }),
-  email: z
-    .string()
-    .min(1, { message: "This field has to be filled." })
-    .email("This is not a valid email."),
+  email: z.string().email("This is not a valid email."),
 });
