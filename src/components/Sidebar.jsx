@@ -13,6 +13,7 @@ import { BsCartCheckFill } from "react-icons/bs";
 import { SidebarContext } from "@/context/SidebarContext";
 import { usePathname } from "next/navigation";
 import UserSection from "./UserSection";
+import { useSession } from "next-auth/react";
 
 const iconSize = {
   size: 24,
@@ -23,30 +24,31 @@ export const sidebarItems = [
     content: "Dashboard",
     href: "/",
     icon: <MdDashboard {...iconSize} />,
-    role: "business",
+    role: "Business",
   },
   {
     content: "Product",
     href: "/product",
     icon: <IoFastFoodSharp {...iconSize} />,
-    role: "business",
+    role: "Business",
   },
   {
     content: "User",
     href: "/user",
     icon: <RiUserSettingsFill {...iconSize} />,
-    role: "business",
+    role: "Manager",
   },
   {
     content: "Order",
     href: "/order",
     icon: <BsCartCheckFill {...iconSize} />,
-    role: "business",
+    role: "Manager",
   },
 ];
 
 const Sidebar = () => {
   const { collapsed, handleToggle } = useContext(SidebarContext);
+  const { data: session } = useSession();
   const pathname = usePathname();
   function isPathMatch(item) {
     if (pathname !== item.href && item.href !== "/") {
@@ -54,6 +56,10 @@ const Sidebar = () => {
     }
     return pathname === item.href;
   }
+
+  const isAuth = (item) => {
+    return session && session?.user?.role === item.role;
+  };
 
   return (
     <div

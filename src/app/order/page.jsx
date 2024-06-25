@@ -23,7 +23,7 @@ const page = async () => {
   });
 
   if (session && session?.user.role !== "Business") {
-    redirect("/");
+    redirect("/403");
   }
 
   return (

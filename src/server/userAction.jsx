@@ -21,5 +21,6 @@ export const postUser = async (requestedData) => {
       body: requestedData,
     }
   );
+
   return data;
 };

@@ -28,7 +28,6 @@ const InformationHeader = () => {
 
   const [initialFormValue, setInitialFormValue] = useState({
     name: null,
-    binId: null,
     bankAccountName: null,
     bankAccountNumber: null,
     bankName: null,
@@ -64,7 +63,6 @@ const InformationHeader = () => {
 
     const formObject = {
       Name: data.name,
-      BinId: data.binId,
       BankAccountName: data.bankAccountName,
       BankAccountNumber: data.bankAccountNumber,
       BankName: data.bankName,
@@ -114,14 +112,6 @@ const InformationHeader = () => {
       placeholder: "Enter business name...",
       name: "name",
       value: initialFormValue?.name || "",
-      onChange: onValueChange,
-      type: "text",
-    },
-    {
-      label: "Bin Id",
-      placeholder: "Enter bin...",
-      name: "binId",
-      value: initialFormValue?.binId || "",
       onChange: onValueChange,
       type: "text",
     },

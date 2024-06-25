@@ -167,7 +167,7 @@ const InformationSection = () => {
       Price: data.price,
       Status: data.status,
       ImageFile: initialFormValue.image,
-      CategoryName: data.category,
+      CategoryID: data.category,
     };
 
     const formData = objectToFormData(formObject);
@@ -253,7 +253,7 @@ const InformationSection = () => {
                 className="w-full"
               >
                 {categories.map((category) => (
-                  <SelectItem key={category.name}>{category.name}</SelectItem>
+                  <SelectItem key={category.value}>{category.name}</SelectItem>
                 ))}
               </Select>
               {error.category?.message && (
