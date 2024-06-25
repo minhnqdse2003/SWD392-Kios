@@ -8,6 +8,8 @@ import React, { Suspense } from "react";
 import InformationHeader from "./components/InformationHeader";
 import FilterTab from "./components/FilterTab";
 import TableData from "./components/TableData";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/authOptions";
 
 const page = async () => {
   const queryClient = new QueryClient();
@@ -16,6 +18,12 @@ const page = async () => {
     queryKey: ["business"],
     queryFn: getBusiness,
   });
+
+  const session = await getServerSession(authOptions);
+
+  if (session && session?.user.role !== "Manager") {
+    redirect("/403");
+  }
 
   return (
     <Suspense>
