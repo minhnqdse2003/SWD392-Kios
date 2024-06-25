@@ -7,6 +7,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import React, { Suspense } from "react";
 
 const page = async () => {

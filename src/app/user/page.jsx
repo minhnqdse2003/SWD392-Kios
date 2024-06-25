@@ -10,6 +10,7 @@ import FilterTab from "./components/FilterTab";
 import TableData from "./components/TableData";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
+import { redirect } from "next/navigation";
 
 const page = async () => {
   const queryClient = new QueryClient();
