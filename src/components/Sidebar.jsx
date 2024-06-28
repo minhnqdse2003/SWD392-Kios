@@ -61,6 +61,10 @@ const Sidebar = () => {
     return session && session?.user?.role === item.role;
   };
 
+  if (pathname === "/login") {
+    return;
+  }
+
   return (
     <div
       className={`w-1/5 items-center rounded-tr-2xl rounded-br-2xl flex justify-center flex-col h-screen bg-primary text-headline gap-12 transition-all duration-500 overflow-x-hidden ${
