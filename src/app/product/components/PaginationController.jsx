@@ -23,7 +23,9 @@ export function PaginationController({
 
     if (Number(page) < 1) return 1;
 
-    return page;
+    if (Number(page) > totalPages) return totalPages;
+
+    return Number(page);
   }
 
   function isValidNext() {
@@ -34,16 +36,16 @@ export function PaginationController({
     return isInvalidPageNumber(currentPage) === 1;
   }
 
-  console.log(isInvalidPageNumber(currentPage) === totalPages);
-
   return (
     <div className="flex justify-end mt-4">
       <Link
         className={`${
-          isValidPrev ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+          isValidPrev()
+            ? "opacity-50 cursor-not-allowed pointer-events-none"
+            : ""
         } mr-2 px-2 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
         href={`?${new URLSearchParams(
-          handleFilterAction(Number(currentPage) - 1, filterParams)
+          handleFilterAction(isInvalidPageNumber(currentPage) - 1, filterParams)
         )}`}
       >
         Previous
@@ -53,10 +55,12 @@ export function PaginationController({
       </span>
       <Link
         className={`${
-          isValidNext ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+          isValidNext()
+            ? "opacity-50 cursor-not-allowed pointer-events-none"
+            : ""
         } mr-2 px-2 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
         href={`?${new URLSearchParams(
-          handleFilterAction(Number(currentPage) + 1, filterParams)
+          handleFilterAction(isInvalidPageNumber(currentPage) + 1, filterParams)
         )}`}
       >
         Next
