@@ -160,6 +160,7 @@ const TableData = () => {
         isOpen={isOpen}
         onClose={onCloseModal}
         selectedRow={selectedRow}
+        filterParam={filterParams}
       />
 
       {error && (

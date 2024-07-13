@@ -31,7 +31,7 @@ const page = async () => {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="flex flex-col p-6">
           <InformationHeader />
-          <FilterTab />
+          {/* <FilterTab /> */}
           <TableData />
         </div>
       </HydrationBoundary>
