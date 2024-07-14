@@ -15,7 +15,6 @@ import {
 import SelectedRowModal from "@/app/home/SelectedRowModal";
 import FilterTab from "@/app/home/FilterTab";
 import Toast from "./Toast";
-import MenuTab from "./MenuTab";
 
 const TableData = () => {
   const router = useRouter();
