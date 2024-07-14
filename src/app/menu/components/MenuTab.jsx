@@ -6,7 +6,6 @@ const MenuTab = ({ filters, onTypeChange, handleFilterAction }) => {
   const [selectedButton, setSelectedButton] = useState(filters?.type || "Morning");
 
   useEffect(() => {
-    // Khi component mount, tự động chọn "Morning" nếu chưa có type được chọn
     if (!filters?.type) {
       handleButtonClick("Morning");
     }

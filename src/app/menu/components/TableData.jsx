@@ -16,8 +16,9 @@ import { useGetMenu } from "@/data/useGetMenu";
 import TableSkeleton from "@/components/Skeleton/TableSkeleton";
 import Toast from "@/components/Toast";
 import MenuTab from "./MenuTab";
-import "./MenuTab.css"
+import "./MenuTab.css";
 import { getSearchParamsObject } from "@/utils/getObject";
+import SelectedRowModal from "./SelectedRowModal";
 
 const columns = [
   { key: "name", name: "Name" },
@@ -30,11 +31,14 @@ const TableData = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentSearchParam = getSearchParamsObject(searchParams);
-
-  const [filters, setFilters] = useState({ ...currentSearchParam, type: currentSearchParam.type || "Morning" });
+  const [filters, setFilters] = useState({
+    ...currentSearchParam,
+    type: currentSearchParam.type || "Morning",
+  });
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const { data, error, isLoading } = useGetMenu(filters);
-
 
   useEffect(() => {
     if (!currentSearchParam.type) {
@@ -42,13 +46,24 @@ const TableData = () => {
     }
   }, []);
 
+  const onSelectedRow = (product) => {
+    setSelectedRow(product);
+    setIsOpen(true);
+  };
+
+  const onCloseModal = () => {
+    setSelectedRow(null);
+    setIsOpen(false);
+  };
+
   const flattenProducts = (data) => {
     if (!data || !data.value || !data.value.data) return [];
     return data.value.data.flatMap((session) =>
       session.products.map((product) => ({
         ...product,
         sessionType: session.type,
-        "product-id": product["product-id"], // Đảm bảo key này tồn tại
+        "product-id": product["product-id"],
+        menuId: session.id,
       }))
     );
   };
@@ -96,7 +111,7 @@ const TableData = () => {
                   <TableRow
                     className="hover:cursor-pointer hover:bg-gray-100"
                     key={`${product["product-id"]}-${index}`}
-                    // onClick={() => onSelectedRow(item)}
+                    onClick={() => onSelectedRow(product)}
                   >
                     <TableCell>
                       <User
@@ -110,22 +125,18 @@ const TableData = () => {
                     <TableCell>{`${product.price} VNĐ`}</TableCell>
                     <TableCell>{product["product-id"]}</TableCell>
                     <TableCell>{product.sessionType}</TableCell>
-                    {/* <TableCell key={item?.id + "code"}>{item?.code}</TableCell>
-                    <TableCell key={item?.id + "des"}>
-                      {item?.description}
-                    </TableCell>
-                    <TableCell key={item?.id + "cateName"}>
-                      {item["category-name"]}
-                    </TableCell>
-                    <TableCell key={item?.id + "status"}>
-                      {item?.status ? "Active" : "InActive"}
-                    </TableCell> */}
                   </TableRow>
                 ))}
             </TableBody>
           </Table>
         </div>
       </div>
+
+      <SelectedRowModal
+        isOpen={isOpen}
+        onClose={onCloseModal}
+        selectedRow={selectedRow}
+      />
 
       {error && (
         <Toast open={error.message} message={"Fetch failed"} severity="error" />
