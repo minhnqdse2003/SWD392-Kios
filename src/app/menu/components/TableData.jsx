@@ -19,6 +19,7 @@ import MenuTab from "./MenuTab";
 import "./MenuTab.css";
 import { getSearchParamsObject } from "@/utils/getObject";
 import SelectedRowModal from "./SelectedRowModal";
+import { PaginationController } from "./PaginationController";
 
 const columns = [
   { key: "name", name: "Name" },
@@ -131,6 +132,12 @@ const TableData = () => {
           </Table>
         </div>
       </div>
+
+      <PaginationController
+        totalContent={data?.value?.total || 1}
+        pageSize={10}
+        filterParams={filters}
+      />
 
       <SelectedRowModal
         isOpen={isOpen}
