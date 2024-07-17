@@ -25,12 +25,39 @@ export const getMenu = async (data) => {
   return res;
 };
 
-export const postMenu = async (data) => {
+export const getAllMenu = async () => {
   const url = `${process.env.API_SECRET_URL}/api/v1/menus`;
 
   const res = await fetchBase(url, {
-    body: data,
+    method: "GET",
+  });
+
+  return res;
+};
+
+export const postMenuProduct = async (data) => {
+  const url = `${process.env.API_SECRET_URL}/api/v1/menus/products`;
+
+  const res = await fetchBase(url, {
+    body: JSON.stringify(data), 
     method: "POST",
+    headers: {
+      'Content-Type': 'application/json', 
+    },
+  });
+
+  return res;
+};
+
+export const deleteMenuProduct = async (data) => {
+  const url = `${process.env.API_SECRET_URL}/api/v1/menus/products`;
+
+  const res = await fetchBase(url, {
+    body: JSON.stringify(data),
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 
   return res;

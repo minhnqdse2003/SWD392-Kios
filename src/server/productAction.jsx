@@ -58,3 +58,15 @@ export const updateProduct = async (formData) => {
 
   return res;
 };
+
+export const getAllProducts = async () => {
+  const url = `${process.env.API_SECRET_URL}/api/v1/products`;
+
+  const res = await fetchBase(url);
+  
+  if (!res || !res.value || !Array.isArray(res.value.data)) {
+    console.error('Invalid response from API:', res);
+    return [];
+  }
+  return res.value.data;
+};

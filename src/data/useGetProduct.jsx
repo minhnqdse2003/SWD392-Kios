@@ -1,5 +1,6 @@
 import {
   deleteProduct,
+  getAllProducts,
   getProduct,
   postProduct,
   updateProduct,
@@ -59,5 +60,13 @@ export const useUpdateProduct = (onClose, filterParams) => {
       queryClient.invalidateQueries(["table", filterParams]);
       onClose();
     },
+  });
+};
+
+export const useGetAllProducts = () => {
+  return useQuery({
+    queryKey: ['allProducts'],
+    queryFn: async () => getAllProducts(),  
+    refetchOnWindowFocus: false,
   });
 };

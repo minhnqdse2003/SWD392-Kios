@@ -1,4 +1,5 @@
-import { usePostMenuProduct } from "@/data/useGetMenu";
+import { useDeleteMenuProduct, usePostMenuProduct } from "@/data/useGetMenu";
+import { useGetProduct } from "@/data/useGetProduct";
 import {
   Button,
   Input,
@@ -11,10 +12,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { BiSolidDollarCircle } from "react-icons/bi";
 import { LiaUserTagSolid } from "react-icons/lia";
-import { MdEdit, MdOutlineDescription } from "react-icons/md";
+import { MdDelete, MdEdit, MdOutlineDescription } from "react-icons/md";
 
 const SelectedRowModal = ({ selectedRow, onClose, isOpen, filters }) => {
-  const { mutate: addProduct } = usePostMenuProduct(onClose, filters);
+  const { mutate: deleteProduct } = useDeleteMenuProduct(onClose, filters);
   const [isDisabled, setIsDisabled] = useState(true);
   const [editedPrice, setEditedPrice] = useState(selectedRow?.price || 0);
 
@@ -26,18 +27,17 @@ const SelectedRowModal = ({ selectedRow, onClose, isOpen, filters }) => {
     setEditedPrice(Number(e.target.value));
   };
 
-  const handleUpdate = () => {
+  const handleDelete = () => {
     if (selectedRow) {
-      const updateData = {
+      const deleteData = {
         "menu-id": selectedRow.menuId,
         products: [
           {
             "product-id": selectedRow["product-id"],
-            price: editedPrice,
           },
         ],
       };
-      updateProduct(updateData);
+      deleteProduct(deleteData);
     }
   };
   return (
@@ -56,6 +56,15 @@ const SelectedRowModal = ({ selectedRow, onClose, isOpen, filters }) => {
           <ModalHeader>
             <div className="flex items-center justify-between w-full pr-[15px]">
               Product Details
+              <Button
+                className="bg-btn text-btn-text"
+                type="submit"
+                color="primary"
+                auto
+                onPress={handleDelete}
+              >
+                <MdDelete size={36} />
+              </Button>
             </div>
           </ModalHeader>
           <ModalBody>
@@ -79,14 +88,14 @@ const SelectedRowModal = ({ selectedRow, onClose, isOpen, filters }) => {
                   value={selectedRow.name}
                   isDisabled={isDisabled}
                 />
-                
+
                 <Input
                   variant={isDisabled ? "flat" : "bordered"}
                   label="Price"
                   startContent={<BiSolidDollarCircle />}
                   name="price"
                   value={selectedRow.price}
-                  onChange={handlePriceChange}
+                  // onChange={handlePriceChange}
                   isDisabled={isDisabled}
                 />
 
@@ -122,7 +131,7 @@ const SelectedRowModal = ({ selectedRow, onClose, isOpen, filters }) => {
                 Close
               </Button>
 
-              {/* <div className="flex items-center space-x-2.5">
+              <div className="flex items-center space-x-2.5">
                 <Button
                   className="px-0 bg-transparent"
                   size="sm"
@@ -137,11 +146,11 @@ const SelectedRowModal = ({ selectedRow, onClose, isOpen, filters }) => {
                   type="submit"
                   color="primary"
                   auto
-                  onPress={handleUpdate}
+                  onPress={onClose}
                 >
                   Update
                 </Button>
-              </div> */}
+              </div>
             </div>
           </ModalFooter>
         </ModalContent>
