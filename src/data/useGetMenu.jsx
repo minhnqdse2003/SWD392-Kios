@@ -28,6 +28,7 @@ export const usePostMenuProduct = (onClose) => {
     },
     onError: () => {
       queryClient.invalidateQueries(["menu"]);
+      console.log(data);
     },
   });
 };

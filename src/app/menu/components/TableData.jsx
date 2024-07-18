@@ -45,7 +45,7 @@ const TableData = () => {
     if (!currentSearchParam.type) {
       handleFilterAction({ type: "Morning" });
     }
-  }, [currentSearchParam.type, handleFilterAction]);
+  }, []);
 
   const onSelectedRow = (product) => {
     setSelectedRow(product);
