@@ -1,4 +1,10 @@
-import { deleteBusiness, getBusiness, postUser, updateBusiness } from "@/server/userAction";
+import {
+  deleteBusiness,
+  getBusiness,
+  getBusinessDashboard,
+  postUser,
+  updateBusiness,
+} from "@/server/userAction";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useGetBusiness = (filterParams) => {
@@ -39,6 +45,14 @@ export const usePostStaff = (onClose) => {
   });
 };
 
+export const useGetBusinessDashBoard = () => {
+  return useQuery({
+    refetchOnWindowFocus: false,
+    queryFn: async () => getBusinessDashboard(),
+    queryKey: ["business-dashboard"],
+  });
+};
+
 export const useDeleteBusiness = (onClose, filterParams) => {
   const queryClient = useQueryClient();
 
@@ -67,4 +81,4 @@ export const useUpdateBusiness = (onClose, filterParams) => {
       queryClient.invalidateQueries(["business", filterParams]);
     },
   });
-}
+};

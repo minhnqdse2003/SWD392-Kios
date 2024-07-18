@@ -131,12 +131,12 @@ const InformationSection = () => {
 
   const categories = [
     {
-      name: "Food",
-      value: 1,
+      name: "Tea & Coffee",
+      value: 2,
     },
     {
       name: "Soft Drinks",
-      value: 2,
+      value: 1,
     },
   ];
 

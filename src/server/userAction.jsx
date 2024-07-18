@@ -44,6 +44,16 @@ export const deleteBusiness = async (id) => {
   return res;
 };
 
+export const getBusinessDashboard = async () => {
+  const url = `${process.env.API_SECRET_URL}/api/v1/sales`;
+
+  const res = await fetchBase(url, {
+    method: "GET",
+  });
+
+  return res;
+};
+
 export const updateBusiness = async (formData) => {
   const url = `${process.env.API_SECRET_URL}/api/v1/businesses`;
 
@@ -53,4 +63,4 @@ export const updateBusiness = async (formData) => {
   });
 
   return res;
-}
+};

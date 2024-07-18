@@ -29,3 +29,20 @@ export const calculateTimePassed = (then) => {
 
   return timePassedString;
 };
+
+export const displayTime = (time) => {
+  const timestamp = new Date(time);
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formatter = new Intl.DateTimeFormat("vi-VN", options);
+  const formattedDate = formatter.format(timestamp);
+
+  return formattedDate;
+};

@@ -12,6 +12,7 @@ import {
   TableCell,
   TableRow,
   User,
+  Chip,
 } from "@nextui-org/react";
 
 import Toast from "../../../components/Toast";
@@ -127,7 +128,10 @@ const TableData = () => {
                     <TableCell>
                       <User
                         name={item?.name}
-                        description={`${item?.price} VNĐ`}
+                        description={`${item?.price.toLocaleString("it-IT", {
+                          style: "currency",
+                          currency: "VND",
+                        })}`}
                         avatarProps={{
                           src: item?.url,
                         }}
@@ -141,7 +145,13 @@ const TableData = () => {
                       {item["category-name"]}
                     </TableCell>
                     <TableCell key={item?.id + "status"}>
-                      {item?.status ? "Active" : "InActive"}
+                      {item?.status ? (
+                        <Chip color="success" className="text-white">
+                          On Sales
+                        </Chip>
+                      ) : (
+                        <Chip color="danger">Not Sales</Chip>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

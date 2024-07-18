@@ -3,14 +3,14 @@
 import { fetchBase } from "./baseAction";
 
 export const getProduct = async (data) => {
-  const { page, name, code, isAscOrder, status, categoryId, businessID } = data;
+  const { page, name, code, isAscOrder, status, category, businessID } = data;
 
   const filters = {
     Name: name || null,
     Code: code || null,
     SortOrder: isAscOrder || null,
     Status: status || null,
-    CategoryID: categoryId || null,
+    CategoryID: category || null,
     BusinessID: businessID || null,
     PageNumber: page || 1,
     PageSize: null,
@@ -63,9 +63,9 @@ export const getAllProducts = async () => {
   const url = `${process.env.API_SECRET_URL}/api/v1/products`;
 
   const res = await fetchBase(url);
-  
+
   if (!res || !res.value || !Array.isArray(res.value.data)) {
-    console.error('Invalid response from API:', res);
+    console.error("Invalid response from API:", res);
     return [];
   }
   return res.value.data;
