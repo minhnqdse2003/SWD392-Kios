@@ -1,38 +1,33 @@
-import { getBusiness } from "@/server/userAction";
+import TableData from "@/app/menu/components/TableData";
+import { getMenu } from "@/server/menuAction";
+import { authOptions } from "@/utils/authOptions";
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import React, { Suspense } from "react";
-import InformationHeader from "./components/InformationHeader";
-import FilterTab from "./components/FilterTab";
-import TableData from "./components/TableData";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
 import { redirect } from "next/navigation";
+import React, { Suspense } from "react";
 
 const page = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["business"],
-    queryFn: getBusiness,
+    queryKey: ["menu"],
+    queryFn: getMenu,
   });
 
   const session = await getServerSession(authOptions);
-
-  if (session && session?.user.role !== "Manager") {
+  
+  if (session && session?.user.role !== "Business") {
     redirect("/403");
   }
 
   return (
     <Suspense>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <div className="flex flex-col p-6">
-          <InformationHeader />
-          <TableData />
-        </div>
+        <TableData />
       </HydrationBoundary>
     </Suspense>
   );

@@ -17,7 +17,8 @@ import {
 } from "@nextui-org/react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { PaginationController } from "./PaginationController";
 
 const cols = [
   { key: 1, name: "Location" },
@@ -37,8 +38,9 @@ const TableData = () => {
   const router = useRouter();
   const searchParam = useSearchParams();
   const currentSearchParam = getSearchParamsObject(searchParam);
+  const page = currentSearchParam.page || 1;
 
-  const { data, error, isLoading } = useGetOrder(currentSearchParam);
+  const { data, error, isLoading } = useGetOrder({ page });
   const {
     mutate: mutateOrderStatus,
     error: mutateOrderStatusError,
@@ -109,6 +111,14 @@ const TableData = () => {
             ))}
         </TableBody>
       </Table>
+
+      {data && data.value && (
+        <PaginationController
+          totalContent={data.value["total-count"] || 0}
+          pageSize={data.value["page-size"] || 10}
+          filterParams={currentSearchParam}
+        />
+      )}
 
       {error?.message && (
         <Toast message={error.message} open={true} severity={"error"} />

@@ -1,25 +1,25 @@
-import { getBusiness, postUser } from "@/server/userAction";
+import { deleteBusiness, getBusiness, postUser, updateBusiness } from "@/server/userAction";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useGetBusiness = () => {
+export const useGetBusiness = (filterParams) => {
   return useQuery({
     refetchOnWindowFocus: false,
-    queryFn: async () => getBusiness(),
-    queryKey: ["business"],
+    queryFn: async () => getBusiness(filterParams),
+    queryKey: ["business", filterParams],
   });
 };
 
-export const usePostBusiness = (onClose) => {
+export const usePostBusiness = (onClose, filterParams) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data) => await postUser(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(["business"]);
+      queryClient.invalidateQueries(["business", filterParams]);
       onClose();
     },
     onError: () => {
-      queryClient.invalidateQueries(["business"]);
+      queryClient.invalidateQueries(["business", filterParams]);
     },
   });
 };
@@ -38,3 +38,33 @@ export const usePostStaff = (onClose) => {
     },
   });
 };
+
+export const useDeleteBusiness = (onClose, filterParams) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id) => await deleteBusiness(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["business", filterParams]);
+      onClose();
+    },
+    onError: () => {
+      queryClient.invalidateQueries(["business", filterParams]);
+    },
+  });
+};
+
+export const useUpdateBusiness = (onClose, filterParams) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (formData) => await updateBusiness(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["business", filterParams]);
+      onClose();
+    },
+    onError: () => {
+      queryClient.invalidateQueries(["business", filterParams]);
+    },
+  });
+}

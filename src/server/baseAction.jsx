@@ -23,6 +23,7 @@ export const fetchBase = async (url, options = {}) => {
   const response = await fetch(url, mergedOptions);
 
   if (!response.ok) {
+    console.log(response);
     throw new Error("Network response was not ok");
   }
 

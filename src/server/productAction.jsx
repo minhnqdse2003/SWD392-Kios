@@ -37,3 +37,36 @@ export const postProduct = async (data) => {
 
   return res;
 };
+
+export const deleteProduct = async (id) => {
+  const url = `${process.env.API_SECRET_URL}/api/v1/products/${id}`;
+
+  const res = await fetchBase(url, {
+    method: "DELETE",
+  });
+
+  return res;
+};
+
+export const updateProduct = async (formData) => {
+  const url = `${process.env.API_SECRET_URL}/api/v1/products`;
+
+  const res = await fetchBase(url, {
+    body: formData,
+    method: "PUT",
+  });
+
+  return res;
+};
+
+export const getAllProducts = async () => {
+  const url = `${process.env.API_SECRET_URL}/api/v1/products`;
+
+  const res = await fetchBase(url);
+  
+  if (!res || !res.value || !Array.isArray(res.value.data)) {
+    console.error('Invalid response from API:', res);
+    return [];
+  }
+  return res.value.data;
+};

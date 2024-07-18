@@ -7,6 +7,7 @@ import {
   MdOutlineKeyboardDoubleArrowLeft,
   MdOutlineKeyboardDoubleArrowRight,
 } from "react-icons/md";
+import { FaBars } from 'react-icons/fa';
 import { IoFastFoodSharp } from "react-icons/io5";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { BsCartCheckFill } from "react-icons/bs";
@@ -24,6 +25,12 @@ export const sidebarItems = [
     content: "Dashboard",
     href: "/",
     icon: <MdDashboard {...iconSize} />,
+    role: "Business",
+  },
+  {
+    content: "Menu",
+    href: "/menu",
+    icon: <FaBars {...iconSize} />,
     role: "Business",
   },
   {

@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 
 const handleFilterAction = (page, filters) => {
@@ -9,8 +10,8 @@ const handleFilterAction = (page, filters) => {
 };
 
 export function PaginationController({
-  totalContent = 1,
-  pageSize = 10,
+  totalContent,
+  pageSize,
   filterParams,
 }) {
   const totalPages = Math.ceil(totalContent / pageSize);
