@@ -1,5 +1,4 @@
 import { useDeleteMenuProduct, usePostMenuProduct } from "@/data/useGetMenu";
-import { useGetProduct } from "@/data/useGetProduct";
 import {
   Button,
   Input,
@@ -9,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiSolidDollarCircle } from "react-icons/bi";
 import { LiaUserTagSolid } from "react-icons/lia";
 import { MdDelete, MdEdit, MdOutlineDescription } from "react-icons/md";

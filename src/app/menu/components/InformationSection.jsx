@@ -1,6 +1,6 @@
 import Toast from "@/components/Toast";
 import { useGetAllMenu, usePostMenuProduct } from "@/data/useGetMenu";
-import { useGetAllProducts, useGetProduct } from "@/data/useGetProduct";
+import { useGetAllProducts } from "@/data/useGetProduct";
 import {
   Button,
   Modal,

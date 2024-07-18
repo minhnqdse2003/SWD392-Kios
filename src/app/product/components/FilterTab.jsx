@@ -86,8 +86,8 @@ const FilterTab = ({
           placeholder="Select a category..."
         >
           <SelectItem key="all">All</SelectItem>
-          <SelectItem key="drink">Drink</SelectItem>
-          <SelectItem key="food">Food</SelectItem>
+          <SelectItem key="1">Soft Drinks</SelectItem>
+          <SelectItem key="2">Tea & Coffee</SelectItem>
         </Select>
         <Button
           onClick={handleFilterAction}
