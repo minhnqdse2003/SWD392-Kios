@@ -1,11 +1,16 @@
-import { deleteOrder, getOrder, getOrderById, putOrderStatus } from "@/server/orderAction";
+import {
+  deleteOrder,
+  getOrder,
+  getOrderById,
+  putOrderStatus,
+} from "@/server/orderAction";
 import { isEmptyObject } from "@/utils/getObject";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useGetOrder = (searchParams) => {
   return useQuery({
     refetchOnWindowFocus: false,
-    queryFn: async () => getOrder(),
+    queryFn: async () => getOrder(searchParams),
     queryKey: isEmptyObject(searchParams) ? ["order"] : ["order", searchParams],
   });
 };
@@ -42,4 +47,4 @@ export const useDeleteOrder = () => {
       console.log("Error deleting order");
     },
   });
-}
+};
