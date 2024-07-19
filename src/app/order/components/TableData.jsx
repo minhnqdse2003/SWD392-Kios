@@ -84,7 +84,10 @@ const TableData = () => {
                   {item?.location}
                 </TableCell>
                 <TableCell key={item?.id + cols[1].name}>
-                  {item?.total}
+                  {item?.total.toLocaleString("it-IT", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
                 </TableCell>
 
                 <TableCell key={item?.id + cols[2].name}>

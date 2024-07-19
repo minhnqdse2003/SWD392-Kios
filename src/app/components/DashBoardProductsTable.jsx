@@ -48,7 +48,10 @@ export default function DashBoardProductsTable({ products }) {
                 <TableCell>
                   <User
                     name={item?.name}
-                    description={`${item?.price} VNĐ`}
+                    description={`${item?.price.toLocaleString("it-IT", {
+                      style: "currency",
+                      currency: "VND",
+                    })} VNĐ`}
                     avatarProps={{
                       src: item?.image,
                     }}

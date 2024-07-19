@@ -91,11 +91,11 @@ const DetailOrder = () => {
   return (
     <Card>
       <CardBody>
-        <h2 className="text-2xl font-bold mb-4">{order.id} Details</h2>
+        <h2 className="text-2xl font-bold mb-4">{order.code} Details</h2>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="font-semibold">Order ID:</p>
-            <p>{order.id}</p>
+            <p>{order.code}</p>
           </div>
           <div>
             <p className="font-semibold">Status:</p>
@@ -116,7 +116,13 @@ const DetailOrder = () => {
           </div>
           <div>
             <p className="font-semibold">Total:</p>
-            <p>{order.total} VNĐ</p>
+            <p>
+              {order.total.toLocaleString("it-IT", {
+                style: "currency",
+                currency: "VND",
+              })}{" "}
+              VNĐ
+            </p>
           </div>
           <div>
             <p className="font-semibold">Note:</p>
